@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-^0-3g(7=tz71i2o!nup%j^c4-+s*r+sd^j6!!oy9xxcpj_y)*d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['wiwan-django-app.herokuapp.com', 'localhost', 'wsei-cloud.herokuapp.com',]
+ALLOWED_HOSTS = ['dailyinterfaceapp.herokuapp.com', 'localhost', 'wsei-cloud.herokuapp.com',]
 
 # Application definition
 

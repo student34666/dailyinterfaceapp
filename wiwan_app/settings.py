@@ -79,11 +79,25 @@ WSGI_APPLICATION = 'wiwan_app.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgresql-encircled-75825',
+        'USER': 'rugybgjphtorfp',
+        'PASSWORD': '2e2959d3cc7b5ff13aadc31457de89760b39378f8d11d785a090fe2b7d0da63a',
+        'HOST': 'ec2-54-80-123-146.compute-1.amazonaws.com'
+        'PORT': 5432
+    }
+    'localhost': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
+import sys
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3'
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

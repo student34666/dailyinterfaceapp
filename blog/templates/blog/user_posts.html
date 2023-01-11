@@ -1,0 +1,51 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<div class="home-posts">
+    <div>
+        <h1 class="mb-3">Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+        <div class="posts-container">
+            {% for post in posts %}
+            <article class="media content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <small class="text-muted">{{ post.date_posted|date:"F d Y" }}</small>
+                    </div>
+                    <div class="media-img">
+                        <img src="{{post.img_url}}"/>
+                    </div>
+                    <div class="article-content">
+                        <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+                        <p>{{ post.content }}</p>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+    {% if is_paginated %}
+    <div class="pagination">
+
+        {% if page_obj.has_previous %}
+        <a class="btn btn-primary-outline" href="?page=1"><i style="display: block; margin-top: -2px;" class="bi bi-caret-left-square-fill"></i></a>
+        <a class="btn btn-primary-outline" href="?page={{ page_obj.previous_page_number }}"><i style="display: block; margin-top: -2px;" class="bi bi-caret-left-square"></i></a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a class="btn btn-primary-outline" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="btn btn-primary-outline" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a class="btn btn-primary-outline" href="?page={{ page_obj.next_page_number }}"><i style="display: block; margin-top: -2px;" class="bi bi-caret-right-square"></i></a>
+        <a class="btn btn-primary-outline" href="?page={{ page_obj.paginator.num_pages }}"><i style="display: block; margin-top: -2px;" class="bi bi-caret-right-square-fill"></i></a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}

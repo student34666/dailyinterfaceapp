@@ -1,0 +1,32 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">
+                    {% with request.resolver_match.view_name as view_name %}
+                    {% if view_name == 'post-create' %}
+                    Create new post
+                    {% else %}
+                    Update post
+                    {%endif%}
+                    {% endwith %}
+                </legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group" style="text-align: right;">
+                <button class="btn btn-primary" type="submit">
+                    {% with request.resolver_match.view_name as view_name %}
+                    {% if view_name == 'post-create' %}
+                    Create
+                    {% else %}
+                    Update
+                    {%endif%}
+                    {% endwith %}
+                </button>
+            </div>
+        </form> 
+    </div>
+{% endblock content %}

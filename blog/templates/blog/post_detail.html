@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="dialog image-content" id="showImg">
+    <div class="image-container" id="imageClickerRange">
+        <div class="image-container__actions">
+            <a class="btn btn-primary-outline" onclick="hideDialog()"><i class="bi bi-x-circle"></i></a>
+        </div>
+        <div class="image-container__img">
+            <img src="{{ object.img_url }}"/>
+        </div>
+    </div>
+</div>
+    <article class="media content-section post-details">
+        <div class="media-body">
+        <div class="article-metadata">
+            <div style="text-align: left; display: flex; justify-content: flex-start; align-items: center;">
+                <span class="text-muted">Created by: <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a></span>
+                <small class="text-muted">{{ object.date_posted|date:"F d Y" }}</small>
+            </div>
+            {% if object.author == user %}
+                <div class="post-actions">
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}"><i class="bi bi-pencil"></i></a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}"><i class="bi bi-trash"></i></a>
+                </div>    
+            {% endif %}
+        </div>
+            <div class="resized-img">
+                <img src="{{ object.img_url }}"/>
+                <a class="show-image-btn btn btn-primary-outline" onclick="showFullSizeImg()"><i class="bi bi-search"></i>
+                    <span style="font-size: 15px">View full size</span></a>
+            </div>
+        <h2 class="article-title mt-3">{{ object.title }}</h2>
+        <p class="article-content">{{ object.content }}</p>
+        </div>
+    </article>
+{% endblock content %}

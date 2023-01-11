@@ -1,4 +1,6 @@
 from django.urls import path
+from django.views.generic.base import RedirectView
+from django.contrib.staticfiles.storage import staticfiles_storage
 from . import views
 from .views import (
     PostListView,
@@ -15,4 +17,8 @@ urlpatterns  = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('post/new/', PostCreateView.as_view(), name='post-create'),
     path('user/<str:username>/', UserPostListView.as_view(), name='user-posts'),
+    path(
+            "favicon.ico",
+            RedirectView.as_view(url=staticfiles_storage.url("favicon.ico")),
+        ),
 ]
